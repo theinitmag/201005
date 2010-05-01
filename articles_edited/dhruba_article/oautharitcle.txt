@@ -1,0 +1,67 @@
+Twitter prompts "An application would like to connect to your account".... "Allow 'application' access ?" with options Deny and Allow. Facebook prompts with similar message, Google does same. What is the prompt? Where go the boats?
+
+An open standard protocol called "OAuth" is what these 'boats' want to implement with. Twitter/Facebook/Google store a huge amount of user information and many private data that a user stores under his/her account. For example, Facebook stores photos, Google has its Calendar where user can create his/her own calendar and make plans accordingly. These prompts simply mean that some third party application wants to access the private data a user has in one of these web services. 
+
+Let us consider a web application titled for example 'TwitterSoft' which automatic retweets tweets of another users who follow his account.
+
+Three entities are the role players in such type of communication. 
+a) The service provider (eg. Twitter)
+b) The consumer application (eg. TwitterSoft)
+c) The user (eg. acpmasquerade)
+
+OAuth is an open protocol to allow secure API authorization in a simple and standard method from desktop to web applications. It enables websites or applications (Consumers) to access "protected resources" from a web service (Service Provider) via an API, without requiring users to disclose their service provider credentials to the consumers. More generally, OAuth creates a freely-implementable and generic methodology for API authentication.
+
+By the end of this line, the author assumes that the reader is somehow clear on what the box, "OAuth" actually stands for.
+
+OAuth Protocol Authentication Flow
+
+[please include the image provided here at this location]
+
+Since its clear with the major terminologies, its better to go with the Authentication Flow. If TwitterSoft wants to access some user acpmasquerade's twitter account, then  its simple acpmasquerade should either provide username and password to TwitterSoft or Twittersoft should use some other methods to verify Twitter that it can use acpmasquerade's account. And the second way is what called the OAuth way. Twitter provides only these two methods till date.
+
+Before any OAuth Authorization can happen, a Consumer Application should register with the Service Provider for a Consumer Key and Consumer Secret. Service Provider will then provide API Access EndPoints to receive access requests from the Consumer Application. 
+
+
+Workflow
+Please take the picture above as a reference. (No Programming Details will be discussed here, Please see https://svn.iamcal.com/public/php/lib_oauth/lib_oauth.php for a minimal library to understand how to program OAuth)
+
+[A] Consumer Application TwitterSoft request Service Provider Twitter with a Request Token. 
+- oauth_signature_method can be anyone from HMAC-SHA1, PLAINTEXT, RSA-SHA1
+- oauth_nonce is just a simple 64bit random string encoded as an ASCII string in decimal format. 
+
+[B] Service Provider Grants the Request Token
+save the request token vars for future
+- oauth_token - required while requesting Access Token
+- oauth_token_secret - required while requesting Access Token
+
+[C] Consumer Directs User to Service Provider
+- This is when you see the prompt mentioned at the beginning.
+
+[D] Service Provider Directs User to Consumer
+- After the Service Provider has authorized the User to Consumer Application with "Allow", Service Provider redirects the user back to the Consumer Application. Callback can be mentioned in earlier request. 
+
+Till now the Service Provider authorizes a Consumer Application for a particular User
+
+[E] Consumer Requests Access Token
+Access Token is what a Consumer Application requires to get the API access. 
+- oauth_token - the one received as Request Token (Step B)
+- oauth_token_token - the one received as Request Token (Step B)
+
+[F] Service Provider grants Access Token
+Since a User has already authorized the Consumer Application, there is no hassle for the Service Provider to provide Access Token to the Consumer, provided that the Request Token matches those provided by it before User grants Authorization. 
+- Request Token can now be replaced with Access Token
+
+[G] Consumer can Access Protected Resources making calls at the API EndPoint provided by the Service Provider. 
+- For Example http://api.twitter.com/1/ is an endpoint and statuses/update.format is an API Method to update a user's twitter status.
+
+If any further information required, will love to discuss at my email acpmasquerade@meronepalma.com
+
+At last, an important note to remember, from among the two methods of authentication I pointed above, from 30th June, 2010 Twitter will allow Consumer Applications to authorize via OAuth only. It means there won't be any way to store user's username and password to access his/her information. Hence the reader must have been clear on why OAuth is required. 
+
+References
+Twitter API Documentation - http://apiwiki.twitter.com/
+OAuth Home - http://oauth.net
+Minimal OAuth Library (PHP) https://svn.iamcal.com/public/php/lib_oauth/lib_oauth.php
+OAuth Test  Server/Client http://term.ie/oauth/example/
+Twitter Dev Apps - http://dev.twitter.com/
+Twitter Api Sandbox (Console) - http://dev.twitter.com/console
