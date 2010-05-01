@@ -5,11 +5,11 @@ An open standard protocol called "OAuth" is what these 'boats' want to implement
 Let us consider a web application titled for example 'TwitterSoft' which automatic retweets tweets of another users who follow his account.
 
 Three entities are the role players in such type of communication. 
-a) The service provider (eg. Twitter)
-b) The consumer application (eg. TwitterSoft)
-c) The user (eg. acpmasquerade)
+a) The Service Provider (eg. Twitter)
+b) The Consumer Application (eg. TwitterSoft)
+c) The User (eg. acpmasquerade)
 
-OAuth is an open protocol to allow secure API authorization in a simple and standard method from desktop to web applications. It enables websites or applications (Consumers) to access "protected resources" from a web service (Service Provider) via an API, without requiring users to disclose their service provider credentials to the consumers. More generally, OAuth creates a freely-implementable and generic methodology for API authentication.
+OAuth is an open protocol to allow secure API authorization in a simple and standard method from desktop to web applications. It enables websites or applications (Consumers) to access "protected resources" from a web service (Service Provider) via an API, without requiring Users to disclose their Service Provider credentials to the Consumers. More generally, OAuth creates a freely-implementable and generic methodology for API authentication.
 
 By the end of this line, the author assumes that the reader is somehow clear on what the box, "OAuth" actually stands for.
 
