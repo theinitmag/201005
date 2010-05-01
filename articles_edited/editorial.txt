@@ -1,0 +1,12 @@
+Yes, The init Magazine is back!!
+
+For all the fresh readers, let me recap the history. The init Magazine used to be published by Institute of Engineering (IOE) FOSS Community, with the first issue released in October, 2008. Things went good and altogether we had 6 issues. But you know, college life is tough and it's hard for college folks to release a quality magazine every month. The publication eventually halted.
+
+So we thought why not bring the publication to FOSS-Nepal and revive the magazine? The former team got together (over IRC) and we decided to get the May 2010 issue out. And here we present you, the 7th issue of The init Magazine!
+
+Despite much haste in article collection, we've received pretty decent articles. A new version of Ubuntu, Lucid Lynx, got released few days ago, so we've managed to include a brief review too. Apart from FOSS topics, we've also remained open on topics related to technology and algorithms. Hope we'll receive more articles on those area in future issues.
+
+The init Magazine is released by the community so if you are interested in making a contribution (editing, layout, etc) we welcome you with arms wide open. Please do send us your articles, feedbacks and suggestions at theinitmag@gmail.com
+
+Cheers,
+The init Magazine Editorial Team
