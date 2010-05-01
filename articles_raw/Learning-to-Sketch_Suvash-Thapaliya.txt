@@ -1,0 +1,44 @@
+Learning to Sketch, once again, Processing instead of pens this time !
+
+Remember those primary school years when you used to sketch flowers, birds and what not, then color them and then show-off it to the girl/boy with the most beautiful smile in the class ? Good ! Snap back to reality now, Just enough nostalgia is good enough :)
+
+And enter Processing ! now you can live those dreamy times again, using code instead of pencils though ! Initiated by Ben Fry and Casey Reas, Processing(http://processing.org) is an open source programming language and environment which excels at creating graphics, images, animations and interaction.
+
+Based on the Java Platform, it is free to download(http://processing.org/download/) and is available for GNU/Linux, Mac OS X, and Windows. Processing is under active development and is used by artists, designers, students, researchers and hobbyists as well, be it for large scale productions, prototyping and tinkering/learning.
+
+Getting Started :
+Programs written for processing is called a "sketch". The language style is similar to Java, but with few modifications and has a very easy learning curve. To get a rough idea, download the Processing environment, installation is pretty straightforward on all OS'es, and load up the Processing. What you get is something like an editor, with a few more buttons.
+Paste in the code below, and hit the Run button, ( which looks like a generic Play button. )
+
+void setup() {
+  size(400, 400);
+  stroke(255);
+  background(192, 64, 0);
+} 
+
+void draw() {
+  line(150, 25, mouseX, mouseY);
+}
+
+Move your mouse in the window, and Voila ! and that's your first sketch !
+
+Now let me explain, what you just did was one of the simplest sketches. What you wrote above is the barebones of almost all of the Processing sketches. You have a setup() block which runs once, and a draw() block, which runs endless, of course until you click the Stop button.
+
+Not impressed yet !
+Well, trust me ! that was nothing close to awesome ! Processing it self has a lot of examples to check for under the File menu. Take a look around, and let me tell you they include only samples from the library bundled with Processing itself. The open source community has written a load of libraries and has done crazy stuff with this seemingly minimal too. Make sure you play around !
+
+Remember an old Nepali Proverb - A seemingly insignificant river will wash you away ! Trust me, this is one of those. Of course, if you are interested you will hopefully check more about it ! Or maybe even drop a message if you liked it, and thought it wasn't enough !
+
+Cheers ! And for more inspiration, do check awesome CC-Licensed sketches at www.openprocessing.org ! One of my favorites, and do check the amount of code : [http://www.openprocessing.org/visuals/?visualID=1163]
+
+Tata
+twitter.com/suvash
+Suvash Thapaliya
+
+Learn more,
+[http://processing.org/]
+[http://processing.org/learning/]
+
+Get Inspired !
+Solar, with lyrics by flight404 [http://vimeo.com/658158]
+Metamorphosis by Glenn Marshall [http://vimeo.com/1747316]

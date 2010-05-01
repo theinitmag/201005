@@ -1,0 +1,137 @@
+* Get Smart with Wget
+
+"The non-interactive network downloader" says the man page, but the mighty wget is more than mere downloader. Being a commandline tool, wget might look lame but the ways it can be used, it makes any other download manager look dumb.
+
+In its simplest form, to download a file, the 
+
+<code>
+$ wget file_to_download
+</code>
+
+But it's the plethora of options that make wget tool of the trade. Lets go through some of the useful and interesting uses of wget.
+
+* Download an entire website
+
+Recursively (converts links to local context):
+<code>
+$ wget -r http://website-to-download.com
+</code>
+
+Use -l<n> option to select the levels to dig into.
+use -np to stop traversing to parent directories.
+
+Mirror:
+<code>
+$ wget -m http://website-to-mirror.com
+</code>
+
+Some websites restrict such entire-website downloads. You can bypass that by,
+
+- Using -w <n> option, which waits for <n> seconds between consecutive retrievals
+- Using -U <user_agent_string> to pass the user agent string as of browser
+
+* Resuming
+
+While downloading you can press Ctrl+c to stop the download. To resume, download the same file using -c option
+
+<code>
+$ wget -c file_to_download
+</code>
+
+* Limiting download rate
+
+<code>
+$ wget --limit-rate=20k http://my_fav_distro.iso
+</code>
+
+This will limit the download speed to 20KB/s. Use m suffix for megabyte.
+
+* Downloading particular type of files only
+
+<code>
+$ wget -A.pdf website-with-url-links
+</code>
+
+This will download only files having .pdf extension from the website. To download all pdf files from the website, use -r option too.
+
+For FTP servers, you can use wildcards like * and ?
+
+<code>
+$ wget ftp://someftpsite.com/files/*.pdf
+</code>
+
+* Downloading a list of files
+
+<code>
+$ wget -i downloadlist.txt
+</code>
+
+where downloadlist.txt contains the list of urls, one per line.
+
+To download the list of files in background and write the output log,
+
+<code>
+$ wget -b -c -i downloadlist.txt -o download.log
+</code>
+
+
+There are much more usage options of wget. Refer to man page for more details. Lets go onto some more fun usages of wget along with other linux tools.
+
+* Random fact generator
+
+Grabs a random fun fact from www.randomfunfacts.com 
+
+<code>
+$ wget randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;"
+</code>
+
+* Get a randon xkcd.com comic
+
+<code>
+$ wget `lynx --dump http://dynamic.xkcd.com/random/comic/ |grep png`
+</code>
+
+* Backup your entire cPanel hosted website
+
+<code>
+$ wget --http-user=YourUsername --http-password=YourPassword http://YourWebsiteUrl:2082/getbackup/backup-YourWebsiteUrl-`date +"%-m-%d-%Y"`.tar.gz
+</code>
+
+Replace YourUsername, YourPassword and YourWebsiteUrl for it to work.
+
+* Get your public IP address
+
+<code>
+$ wget -qO- whatismyip.org
+</code>
+
+* Download all models wallpapers from cybersansar.com
+
+Well, this is lil' kinky but WTH ;) Put the following script to a file, set it as executable and run!
+
+<code>
+#!/bin/bash
+
+id=1
+idlimit=2000
+
+while [ "$id" -le $idlimit ]; do
+	wget http://www.cybersansar.com/`wget -q -O - http://www.cybersansar.com/wallpaper_download.php?wid=$id | grep 'graphics/wallpaper/model' | sed 's/.jpg" /.jpg\n/' | sed 's/"graphics/\ngraphics/' | grep '^graphics.*jpg$'`
+	id=$(($id+1))
+done
+</code>
+
+The idlimit value is ever increasing, modify it to suit your taste :P
+
+Or alternatively, download one random wallpaper:
+
+<code>
+$ id=$((RANDOM%2000));wget http://www.cybersansar.com/`wget -q -O - http://www.cybersansar.com/wallpaper_download.php?wid=$id | grep 'graphics/wallpaper/model' | sed 's/.jpg" /.jpg\n/' | sed 's/"graphics/\ngraphics/' | grep '^graphics.*jpg$'`
+</code>
+
+Have fun wget'ting..
+
+References:
+http://www.gnu.org/software/wget/
+http://www.cyberciti.biz/tips/linux-wget-your-ultimate-command-line-downloader.html
+http://www.commandlinefu.com
