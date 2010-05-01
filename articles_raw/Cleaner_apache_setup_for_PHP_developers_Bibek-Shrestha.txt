@@ -1,0 +1,103 @@
+Cleaner apache setup for PHP developers
+
+My work involves a lot of php development at work and I have to test new applications a lot of the time. The setup includes the usual LAMP stack where LAMP stands for Linux Apache MySql and Php. For ubuntu users, there are two quick options.
+
+a) Use the xampp package.
+The xampp package is a hassle free bundle of LAMP stack. It includes apache, mysql, php as well as other helpful packages like phpmyadmin, sqliteadmin, helpful start and stop scripts, ssl, etc.
+
+The disadvantage however is the level of customization, ie, addition and removal of features. Say I want to add opcode cache for better performance or use xdebug for debugging, it is very difficult.
+
+b) The other setup is using installing LAMP stack through the repository. I prefer this setup to the xampp way, although that means downloading significant amount of files. The benefit is that you can add or remove or configure modules related to PHP or Apache or mysql easily. Besides this, the packages in Ubuntu repository are configured properly so you just need to install the package. Not much configuration is required to get running.
+
+The default webroot for apache is /var/www where different folders, example foldername corresponds to http://localhost/foldername. Sometimes, we might use links of the form http://localhost/applicationname/link in our application. When shifting to a production server when it should map to http://productionserver/link it however maps to http://productionserver/applicationname/link. 
+
+In this tutorial, I will give you instructions to setup a cleaner and easier development environment on a fresh Ubuntu server. At the end of the tutorial, you will be able to run web applications with http://application1.local, http://application2.local, http://application3.local. The applications can reside in any of your own home folder and symlinks will be created in /home/username/vhosts folder. Let's get started
+
+*Install apache, mysql and php*
+
+$ sudo apt-get install apache2 apache2-mpm-worker php5 php5-cli php5-cgi mysql-server
+
+*Install required apache modules*
+We will install following modules
+
+a. libapache2-mod-fcgid, runs php in fastcgi mode. This is memory efficient method of running php.
+b. apache2-suexec-custom, The module let's you run your web applications under a custom user account. You do not need to do chmod 777 or chown username for the /var/www folders.
+s
+$ sudo apt-get install apache2-suexec-custom libapache2-mod-fcgid
+
+Now enable the modules
+
+$ sudo a2enmod actions
+$ sudo a2enmod fcgid
+$ sudo a2enmod suexec
+$ sudo a2enmod vhost_alias
+$ sudo service apache restart
+
+*Configure VirtualHosts*
+
+Now to run any application as http://application1.local we have to setup apache configuration 
+
+Create the file /etc/apache2/sites-available/my-vhosts and replace username with your account name
+
+<VirtualHost *:80>
+
+  LogFormat "%V %h %l %u %t \"%r\" %s %b" vcommon
+  CustomLog /var/log/apache2/my-vhosts_access.log vcommon
+
+  SuexecUserGroup username username
+
+  VirtualDocumentRoot /home/username/vhosts/%0/
+  VirtualScriptAlias /home/username/vhosts/cgi-bin/
+
+  AddHandler php-fcgi .php
+  Action php-fcgi /cgi-bin/php5.fcgi
+
+  <Directory /home/username>
+    Order Deny,Allow
+    Allow from all
+    Options -Indexes FollowSymLinks ExecCGI
+    AllowOverride All
+  </Directory>
+
+</VirtualHost>
+
+What this does is, it redirects any domain name to /home/username/vhosts. But first you have to create this folder.
+
+$ mkdir -p ~/vhosts/cgi-bin
+
+You now have to setup your PHP FastCGI-Wrapper in ~/vhosts/cgi-bin/php5.fcgi
+
+#!/bin/sh
+exec /usr/bin/php5-cgi
+
+Then you have to setup your suexec-common folder by editing file /etc/apache2/suexec/www-data 
+
+/home/bibek
+public_html/cgi-bin
+
+And finally enable your vhosts and restart apache
+
+$ sudo a2ensite my-vhosts
+$ sudo a2dissite default
+$ sudo service apache restart
+
+*Add a virtual host*
+
+i like to put all my folders in /home/username/src/htdocs/projectname. So I would create a symlink of the project into the vhosts directory as
+
+$ cd vhosts
+$ ln -sv ~/src/htdocs/application1 application1.local
+
+The /etc/hosts file need to be edited so that application1.local points to your localhost
+
+127.0.0.1	application.local
+
+After this, you should be able to access your website through http://application1.local. So for now on, for each new application you would just create 
+a. symlink in ~/vhosts folder
+b. entry in /etc/hosts file
+
+Original Article: http://www.ruzee.com/blog/2009/01/apache-virtual-hosts-a-clean-setup-for-php-developers
+Tweaked and fixed by 
+Bibek Shrestha
+bibekshrestha.com.np
+
