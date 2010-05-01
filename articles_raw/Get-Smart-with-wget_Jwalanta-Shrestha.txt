@@ -123,10 +123,10 @@ done
 
 The idlimit value is ever increasing, modify it to suit your taste :P
 
-Or alternatively, download one random wallpaper:
+Or alternatively, download a random one and set it as desktop wallpaper (GNOME):
 
 <code>
-$ id=$((RANDOM%2000));wget http://www.cybersansar.com/`wget -q -O - http://www.cybersansar.com/wallpaper_download.php?wid=$id | grep 'graphics/wallpaper/model' | sed 's/.jpg" /.jpg\n/' | sed 's/"graphics/\ngraphics/' | grep '^graphics.*jpg$'`
+id=$((RANDOM%2000)); wget -O ~/Pictures/cybersansar-wallpaper.jpg http://www.cybersansar.com/`wget -q -O - http://www.cybersansar.com/wallpaper_download.php?wid=$id | grep 'graphics/wallpaper/model' | sed 's/.jpg" /.jpg\n/' | sed 's/"graphics/\ngraphics/' | grep '^graphics.*jpg$'`; gconftool-2 -t string -s /desktop/gnome/background/picture_filename ~/Pictures/cybersansar-wallpaper.jpg
 </code>
 
 Have fun wget'ting..
