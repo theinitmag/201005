@@ -1,5 +1,21 @@
 The init Magazine
 2010 May Issue
 
-Article Lists
-@TODO
+* Article Naming Convention
+
+<title>_<author>.ext
+Replace spaces by '-'.
+
+eg,
+Linux-Kernel-for-Beginners_Linux-Torvalds.tex
+
+* Article Lists
+
+(put your name under <edited_by> for reservation)
+
+<s.no.> | <title> | <author> | <edit_status> | <edited_by>
+1 | Weapon of Mass Collaboration | Ruchin Singh | UNEDITED |
+2 | Lucid Lynx Review | Jitendra Harlalka | UNEDITED |
+3 | Where go the boats | Dhruba Adhikari | UNEDITED |
+4 | Learning to Sketch | Suvash Thapaliya | UNEDITED |
+5 | Get Smart with Wget | Jwalanta Shrestha | UNEDITED |
